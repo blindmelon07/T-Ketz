@@ -17,7 +17,7 @@ class MembersResource extends Resource
 {
     protected static ?string $model = Members::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
@@ -31,7 +31,16 @@ class MembersResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('clientid')->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('fullname')->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('branch_name'),
+                Tables\Columns\TextColumn::make('dateofbirth'),
+                Tables\Columns\TextColumn::make('age'),
+                Tables\Columns\TextColumn::make('gender'),
+                Tables\Columns\TextColumn::make('cellnumber'),
+                Tables\Columns\TextColumn::make('address'),
             ])
             ->filters([
                 //
