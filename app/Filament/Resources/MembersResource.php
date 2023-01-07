@@ -4,9 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MembersResource\Pages;
 use App\Filament\Resources\MembersResource\RelationManagers;
+use App\Filament\Resources\MembersResource\RelationManagers\TicketsRelationManager;
 use App\Models\Members;
 use Filament\Forms;
 use Filament\Resources\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
@@ -18,12 +20,20 @@ class MembersResource extends Resource
     protected static ?string $model = Members::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-
+    protected static ?string $navigationGroup = 'Ticket Management';
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('clientid')->disabled(),
+                Forms\Components\TextInput::make('fullname')->disabled(),
+                Forms\Components\TextInput::make('branch_name')->disabled(),
+                Forms\Components\TextInput::make('dateofbirth')->disabled(),
+                Forms\Components\TextInput::make('age')->disabled(),
+                Forms\Components\TextInput::make('gender')->disabled(),
+                Forms\Components\TextInput::make('cellnumber'),
+                Forms\Components\TextInput::make('address'),
+                
             ]);
     }
 
@@ -32,7 +42,8 @@ class MembersResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('clientid')->sortable()
-                ->searchable(),
+                ->searchable()
+                ,
                 Tables\Columns\TextColumn::make('fullname')->sortable()
                 ->searchable(),
                 Tables\Columns\TextColumn::make('branch_name'),
@@ -56,7 +67,7 @@ class MembersResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+           // RelationManagers\TicketsRelationManager::class,
         ];
     }
     

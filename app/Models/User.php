@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use PhpOption\None;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -25,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -50,17 +52,18 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        self::created(function ($model) {
-            $role_name = Role::find($model->role_id)->name;
-            $model->assignRole($role_name);
-            $model->save();
-        });
+       self::created(function ($model) {
+           $role_name = Role::find($model->role_id)->name;
+       $model->assignRole($role_name);
+           $model->save();
+      });
 
-        self::updated(function ($model) {
+      self::updated(function ($model) {
             $role = Role::find($model->role_id);
             $model->syncRoles([$role->name]);
             $model->role_id = $role->id;
-            $role->save();
+           $role->save();
         });
     }
+   
 }
