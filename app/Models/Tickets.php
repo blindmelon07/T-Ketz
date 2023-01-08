@@ -14,13 +14,11 @@ class Tickets extends Model
 
 
     protected $fillable = [
+        'members_id',
         'ticket_code',
         'quantity'
-
-
-
     ];
-    public function member()
+    public function members()
     {
         return $this->belongsTo(Members::class);
     }

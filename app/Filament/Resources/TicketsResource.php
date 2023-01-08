@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TicketsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TicketsResource\RelationManagers;
+use App\Filament\Resources\TicketsResource\RelationManagers\MembersRelationManager;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class TicketsResource extends Resource
 {
-    protected static ?string $model = Tickets::class;
+    protected static ?string $model = tickets::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationGroup = 'Ticket Management';
@@ -50,7 +52,7 @@ class TicketsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MembersRelationManager::class,
         ];
     }
     
