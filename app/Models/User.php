@@ -4,15 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use PhpOption\None;
+namespace App\Models;
+
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use JeffGreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+use Spatie\Permission\Models\Role;
 class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -23,10 +24,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        
         'name',
+        'role_id',
         'email',
         'password',
-        'role_id'
+        
     ];
 
     /**
@@ -54,7 +57,7 @@ class User extends Authenticatable
 
        self::created(function ($model) {
            $role_name = Role::find($model->role_id)->name;
-       $model->assignRole($role_name);
+            $model->assignRole($role_name);
            $model->save();
       });
 
@@ -64,6 +67,10 @@ class User extends Authenticatable
             $model->role_id = $role->id;
            $role->save();
         });
+    }
+    public function canAccessFilament(): bool
+    {
+        return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
     }
    
 }

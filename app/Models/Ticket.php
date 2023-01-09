@@ -6,20 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 
-class Tickets extends Model 
+class Ticket extends Model
 {
     use HasFactory, HasRoles;
 
+    protected $fillable = ['members_id','ticket_code',];
 
 
-
-    protected $fillable = [
-        'members_id',
-        'ticket_code',
-        'quantity'
-    ];
-    public function members()
+    public function member()
     {
         return $this->belongsTo(Members::class);
+
     }
 }

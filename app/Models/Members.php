@@ -22,9 +22,9 @@ class Members extends Model
         'branch_name'
     ];
 
-    public function tickets()
+    public function ticket()
     {
-        return $this->hasMany(Tickets::class);
+        return $this->hasMany(Ticket::class);
     }
 
     

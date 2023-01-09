@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\TicketsResource\RelationManagers;
+namespace App\Filament\Resources\MembersResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -10,17 +10,17 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MembersRelationManager extends RelationManager
+class TicketRelationManager extends RelationManager
 {
-    protected static string $relationship = 'Members';
+    protected static string $relationship = 'ticket';
 
-    protected static ?string $recordTitleAttribute = 'clientid';
+    protected static ?string $recordTitleAttribute = 'ticket_code';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('clientid')
+                Forms\Components\TextInput::make('ticket_code')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -30,7 +30,7 @@ class MembersRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('clientid'),
+                Tables\Columns\TextColumn::make('ticket_code'),
             ])
             ->filters([
                 //
