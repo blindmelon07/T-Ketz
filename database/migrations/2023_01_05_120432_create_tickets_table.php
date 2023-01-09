@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('members_id')->constrained();
+            $table->unsignedInteger('clientid')->constrained()->cascadeOnDelete();
             $table->string('ticket_code');
             $table->string('quantity');
             $table->timestamps();
