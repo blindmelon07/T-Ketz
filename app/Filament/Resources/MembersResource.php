@@ -2,19 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MembersResource\Pages;
-use App\Filament\Resources\MembersResource\RelationManagers;
-use App\Filament\Resources\MembersResource\RelationManagers\TicketRelationManager;
-use App\Filament\Resources\MembersResource\RelationManagers\TicketsRelationManager;
-use App\Models\Members;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\Members;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\MembersResource\Pages;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use App\Filament\Resources\MembersResource\RelationManagers\TicketRelationManager;
 
 class MembersResource extends Resource
 {
@@ -52,6 +49,7 @@ class MembersResource extends Resource
                 Tables\Columns\TextColumn::make('gender'),
                 Tables\Columns\TextColumn::make('cellnumber'),
                 Tables\Columns\TextColumn::make('address'),
+                
             ])
             ->filters([
                 //
@@ -59,10 +57,17 @@ class MembersResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+              ->bulkActions([
+               Tables\Actions\DeleteBulkAction::make(),
+               
+               
+                
+             
+            
+               
             ]);
     }
+  
     
     public static function getRelations(): array
     {

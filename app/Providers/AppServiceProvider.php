@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Spatie\Activitylog\Models\Activity;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
+    protected $policies = [
+        Activity::class => ActivityPolicy::class,
+    ];
     /**
      * Bootstrap any application services.
      *
